@@ -18,6 +18,9 @@
 // Todo: update this when changing our copyright comments in the source
 #define COPYRIGHT_YEAR 2017
 
+// Maintained-release identity. This does not alter historical third-party copyright ranges.
+#define MAINTENANCE_YEAR 2026
+
 // Converts the parameter X to a string after macro replacement on X has been performed.
 // Don't merge these into one macro!
 #define STRINGIZE(X) DO_STRINGIZE(X)
