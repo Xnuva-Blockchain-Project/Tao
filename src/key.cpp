@@ -41,10 +41,10 @@ static ECDSA_SIG* ECDSA_SIG_parse_legacy_missing_sign_pad(
 
     const size_t seqend = pos + seqlen;
 
-    if (pos >= inputlen || input[pos++] != 0x02)
+    if (pos >= seqend || input[pos++] != 0x02)
         return NULL;
 
-    if (pos >= inputlen || (input[pos] & 0x80))
+    if (pos >= seqend || (input[pos] & 0x80))
         return NULL;
 
     size_t rlen = input[pos++];
@@ -55,10 +55,10 @@ static ECDSA_SIG* ECDSA_SIG_parse_legacy_missing_sign_pad(
     const unsigned char *rptr = input + pos;
     pos += rlen;
 
-    if (pos >= inputlen || input[pos++] != 0x02)
+    if (pos >= seqend || input[pos++] != 0x02)
         return NULL;
 
-    if (pos >= inputlen || (input[pos] & 0x80))
+    if (pos >= seqend || (input[pos] & 0x80))
         return NULL;
 
     size_t slen = input[pos++];
