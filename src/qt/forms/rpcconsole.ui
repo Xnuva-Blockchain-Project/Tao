@@ -36,7 +36,7 @@
           </font>
          </property>
          <property name="text">
-          <string>TaoCoin Core</string>
+          <string>TaoCoin — Original 2017 Legacy Chain</string>
          </property>
         </widget>
        </item>
@@ -348,7 +348,7 @@
        <item row="17" column="0">
         <widget class="QPushButton" name="showCLOptionsButton">
          <property name="toolTip">
-          <string>Show the TaoCoin-Qt help message to get a list with possible TaoCoin command-line options.</string>
+          <string>Show TaoCoin — Original 2017 Legacy Chain help and command-line options. Maintained 2026 by the Xnuva Blockchain Project.</string>
          </property>
          <property name="text">
           <string>&amp;Show</string>
