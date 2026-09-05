@@ -12,6 +12,97 @@
 // anonymous namespace with local implementation code (OpenSSL interaction)
 namespace {
 
+/*
+ * OpenSSL 1.0.2 accepted a narrow class of historical ECDSA encodings where
+ * an otherwise well-formed positive INTEGER omitted the required leading 0x00
+ * when the high bit was set. OpenSSL 3 rejects those encodings.
+ *
+ * This fallback intentionally accepts only that proven legacy difference:
+ * exact short-form DER structure, no trailing bytes, no excessive padding,
+ * and at least one R/S INTEGER with the missing positive sign pad.
+ */
+static ECDSA_SIG* ECDSA_SIG_parse_legacy_missing_sign_pad(
+    const unsigned char *input,
+    size_t inputlen)
+{
+    if (input == NULL || inputlen < 6 || input[0] != 0x30)
+        return NULL;
+
+    size_t pos = 1;
+
+    if (input[pos] & 0x80)
+        return NULL;
+
+    size_t seqlen = input[pos++];
+
+    if (seqlen != inputlen - pos)
+        return NULL;
+
+    if (pos >= inputlen || input[pos++] != 0x02)
+        return NULL;
+
+    if (pos >= inputlen || (input[pos] & 0x80))
+        return NULL;
+
+    size_t rlen = input[pos++];
+
+    if (rlen == 0 || rlen > inputlen - pos)
+        return NULL;
+
+    const unsigned char *rptr = input + pos;
+    pos += rlen;
+
+    if (pos >= inputlen || input[pos++] != 0x02)
+        return NULL;
+
+    if (pos >= inputlen || (input[pos] & 0x80))
+        return NULL;
+
+    size_t slen = input[pos++];
+
+    if (slen == 0 || slen != inputlen - pos)
+        return NULL;
+
+    const unsigned char *sptr = input + pos;
+
+    if (rlen > 33 || slen > 33)
+        return NULL;
+
+    bool rMissingPad = (rptr[0] & 0x80) != 0;
+    bool sMissingPad = (sptr[0] & 0x80) != 0;
+
+    if (!rMissingPad && !sMissingPad)
+        return NULL;
+
+    if (rptr[0] == 0x00 && rlen > 1 && (rptr[1] & 0x80) == 0)
+        return NULL;
+
+    if (sptr[0] == 0x00 && slen > 1 && (sptr[1] & 0x80) == 0)
+        return NULL;
+
+    BIGNUM *r = BN_bin2bn(rptr, rlen, NULL);
+    BIGNUM *ss = BN_bin2bn(sptr, slen, NULL);
+
+    if (r == NULL || ss == NULL)
+    {
+        BN_free(r);
+        BN_free(ss);
+        return NULL;
+    }
+
+    ECDSA_SIG *sig = ECDSA_SIG_new();
+
+    if (sig == NULL || !ECDSA_SIG_set0(sig, r, ss))
+    {
+        BN_free(r);
+        BN_free(ss);
+        ECDSA_SIG_free(sig);
+        return NULL;
+    }
+
+    return sig;
+}
+
 // Generate a private key from just the secret parameter
 int EC_KEY_regenerate_key(EC_KEY *eckey, BIGNUM *priv_key)
 {
@@ -208,24 +299,22 @@ public:
         if (vchSig.empty())
             return false;
 
-        // New versions of OpenSSL will reject non-canonical DER signatures. de/re-serialize first.
-        unsigned char *norm_der = NULL;
-        ECDSA_SIG *norm_sig = ECDSA_SIG_new();
+        // Preserve the original 2017 verification behaviour while using OpenSSL 3.
+        // First use the modern DER decoder. If it rejects the proven historical
+        // missing-sign-pad form accepted by OpenSSL 1.0.2, normalize only that form.
         const unsigned char* sigptr = &vchSig[0];
-        assert(norm_sig);
-        if (d2i_ECDSA_SIG(&norm_sig, &sigptr, vchSig.size()) == NULL)
-        {
-            /* As of OpenSSL 1.0.0p d2i_ECDSA_SIG frees and nulls the pointer on
-             * error. But OpenSSL's own use of this function redundantly frees the
-             * result. As ECDSA_SIG_free(NULL) is a no-op, and in the absence of a
-             * clear contract for the function behaving the same way is more
-             * conservative.
-             */
-            ECDSA_SIG_free(norm_sig);
+        ECDSA_SIG *norm_sig = d2i_ECDSA_SIG(NULL, &sigptr, vchSig.size());
+
+        if (norm_sig == NULL)
+            norm_sig = ECDSA_SIG_parse_legacy_missing_sign_pad(&vchSig[0], vchSig.size());
+
+        if (norm_sig == NULL)
             return false;
-        }
+
+        unsigned char *norm_der = NULL;
         int derlen = i2d_ECDSA_SIG(norm_sig, &norm_der);
         ECDSA_SIG_free(norm_sig);
+
         if (derlen <= 0)
             return false;
 
