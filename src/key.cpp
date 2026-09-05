@@ -17,9 +17,10 @@ namespace {
  * an otherwise well-formed positive INTEGER omitted the required leading 0x00
  * when the high bit was set. OpenSSL 3 rejects those encodings.
  *
- * This fallback intentionally accepts only that proven legacy difference:
- * exact short-form DER structure, no trailing bytes, no excessive padding,
- * and at least one R/S INTEGER with the missing positive sign pad.
+ * This fallback intentionally accepts only the proven legacy differences:
+ * short-form DER, at least one R/S INTEGER with the missing positive sign pad,
+ * and optional bytes after the DER sequence (which the 2017 d2i/i2d
+ * normalization path ignored). Excessive integer padding is still rejected.
  */
 static ECDSA_SIG* ECDSA_SIG_parse_legacy_missing_sign_pad(
     const unsigned char *input,
@@ -35,8 +36,10 @@ static ECDSA_SIG* ECDSA_SIG_parse_legacy_missing_sign_pad(
 
     size_t seqlen = input[pos++];
 
-    if (seqlen != inputlen - pos)
+    if (seqlen > inputlen - pos)
         return NULL;
+
+    const size_t seqend = pos + seqlen;
 
     if (pos >= inputlen || input[pos++] != 0x02)
         return NULL;
@@ -46,7 +49,7 @@ static ECDSA_SIG* ECDSA_SIG_parse_legacy_missing_sign_pad(
 
     size_t rlen = input[pos++];
 
-    if (rlen == 0 || rlen > inputlen - pos)
+    if (rlen == 0 || rlen > seqend - pos)
         return NULL;
 
     const unsigned char *rptr = input + pos;
@@ -60,7 +63,7 @@ static ECDSA_SIG* ECDSA_SIG_parse_legacy_missing_sign_pad(
 
     size_t slen = input[pos++];
 
-    if (slen == 0 || slen != inputlen - pos)
+    if (slen == 0 || slen != seqend - pos)
         return NULL;
 
     const unsigned char *sptr = input + pos;
