@@ -13,42 +13,53 @@
 SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     QSplashScreen(pixmap, f)
 {
-    // set reference point, paddings
-    int paddingLeftCol2         = 230;
-    int paddingTopCol2          = 376;
-    int line1 = 0;
-    int line2 = 13;
-    int line3 = 26;
-
-    float fontFactor            = 1.0;
-
-    // define text to place
-    QString titleText       = QString(QApplication::applicationName()).replace(QString("-testnet"), QString(""), Qt::CaseSensitive); // cut of testnet, place it as single object further down
-    QString versionText     = QString("Version %1 ").arg(QString::fromStdString(FormatFullVersion()));
-    QString copyrightText1   = QChar(0xA9)+QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin developers"));
-    QString copyrightText2   = QChar(0xA9)+QString(" 2011-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The TaoCoin developers"));
-
-    QString font            = "Arial";
-
-    // load the bitmap for writing some text over it
+    // Load the approved TaoCoin artwork, then add maintained-release stamps at runtime.
     QPixmap newPixmap;
     if(GetBoolArg("-testnet")) {
-        newPixmap     = QPixmap(":/images/splash_testnet");
+        newPixmap = QPixmap(":/images/splash_testnet");
     }
     else {
-        newPixmap     = QPixmap(":/images/splash");
+        newPixmap = QPixmap(":/images/splash");
     }
 
+    const int w = newPixmap.width();
+    const int h = newPixmap.height();
+
+    int stampFontSize = w / 34;
+    if(stampFontSize < 8)
+        stampFontSize = 8;
+
+    int infoFontSize = w / 48;
+    if(infoFontSize < 7)
+        infoFontSize = 7;
+
     QPainter pixPaint(&newPixmap);
-    pixPaint.setPen(QColor(70,70,70));
+    pixPaint.setRenderHint(QPainter::Antialiasing, true);
 
-    pixPaint.setFont(QFont(font, 9*fontFactor));
-    pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line3,versionText);
+    QRect stampRect((w * 59) / 100, (h * 4) / 100, (w * 36) / 100, (h * 9) / 100);
+    pixPaint.fillRect(stampRect, QColor(190, 145, 45, 220));
+    pixPaint.setPen(QColor(20, 20, 20));
+    pixPaint.setFont(QFont("Arial", stampFontSize, QFont::Bold));
+    pixPaint.drawText(stampRect, Qt::AlignCenter,
+                      tr("MAINTAINED %1").arg(MAINTENANCE_YEAR));
 
-    // draw copyright stuff
-    pixPaint.setFont(QFont(font, 9*fontFactor));
-    pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line1,copyrightText1);
-    pixPaint.drawText(paddingLeftCol2,paddingTopCol2+line2,copyrightText2);
+    QRect infoRect(0, (h * 82) / 100, w, (h * 18) / 100);
+    pixPaint.fillRect(infoRect, QColor(0, 0, 0, 175));
+    pixPaint.setPen(QColor(245, 245, 245));
+    pixPaint.setFont(QFont("Arial", infoFontSize, QFont::Bold));
+    pixPaint.drawText(QRect(0, (h * 83) / 100, w, (h * 5) / 100),
+                      Qt::AlignCenter,
+                      tr("TaoCoin — Original 2017 Legacy Chain"));
+    pixPaint.setFont(QFont("Arial", infoFontSize));
+    pixPaint.drawText(QRect(0, (h * 88) / 100, w, (h * 4) / 100),
+                      Qt::AlignCenter,
+                      tr("Maintained by the Xnuva Blockchain Project"));
+    pixPaint.drawText(QRect(0, (h * 92) / 100, w, (h * 3) / 100),
+                      Qt::AlignCenter,
+                      QString("europazeus.org"));
+    pixPaint.drawText(QRect(0, (h * 95) / 100, w, (h * 4) / 100),
+                      Qt::AlignCenter,
+                      QString("Version %1").arg(QString::fromStdString(FormatFullVersion())));
 
     pixPaint.end();
 
