@@ -1037,7 +1037,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Unix: ~/.bitcoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "TaoCoin";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "TaoCoin-Revival";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -1049,10 +1049,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "TaoCoin";
+    return pathRet / "TaoCoin-Revival";
 #else
     // Unix
-    return pathRet / ".taocoin";
+    return pathRet / ".taocoin-revival";
 #endif
 #endif
 }

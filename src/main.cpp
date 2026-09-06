@@ -2742,10 +2742,10 @@ bool LoadBlockIndex()
 {
     if (fTestNet)
     {
-        pchMessageStart[0] = 0x38;
-        pchMessageStart[1] = 0x1b;
-        pchMessageStart[2] = 0x24;
-        pchMessageStart[3] = 0xa3;
+        pchMessageStart[0] = 0x61;
+        pchMessageStart[1] = 0xc4;
+        pchMessageStart[2] = 0x9c;
+        pchMessageStart[3] = 0x80;
         hashGenesisBlock = uint256("0x");
     }
 
@@ -3108,7 +3108,7 @@ bool static AlreadyHave(const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0x06, 0xca, 0xcb, 0xbb }; // TaoCoin: increase each by adding 2 to bitcoin's value.
+unsigned char pchMessageStart[4] = { 0xb3, 0x3d, 0xdc, 0x92 }; // Tao Revival mainnet.
 
 
 void static ProcessGetData(CNode* pfrom)
