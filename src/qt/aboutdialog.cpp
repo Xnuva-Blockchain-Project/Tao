@@ -17,7 +17,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     // Set current copyright year
     ui->copyrightLabel->setText(
         tr("Copyright") + QString(" &copy; 2009-%1 ").arg(COPYRIGHT_YEAR) + tr("The Bitcoin developers") + QString("<br>") +
-        tr("Copyright") + QString(" &copy; 2017 ") + tr("The TaoCoin developers") + QString("<br>") +
+        tr("Original TaoCoin legacy chain release: 2017") + QString("<br>") +
         tr("Maintained %1 by the Xnuva Blockchain Project").arg(MAINTENANCE_YEAR) + QString("<br>") +
         QString("<a href=\"https://europazeus.org\">europazeus.org</a>"));
     ui->copyrightLabel->setOpenExternalLinks(true);
