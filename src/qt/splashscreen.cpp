@@ -49,7 +49,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     pixPaint.setFont(QFont("Arial", infoFontSize, QFont::Bold));
     pixPaint.drawText(QRect(0, (h * 83) / 100, w, (h * 5) / 100),
                       Qt::AlignCenter,
-                      tr("TaoCoin — Original 2017 Legacy Chain"));
+                      tr("TaoCoin Revival"));
     pixPaint.setFont(QFont("Arial", infoFontSize));
     pixPaint.drawText(QRect(0, (h * 88) / 100, w, (h * 4) / 100),
                       Qt::AlignCenter,

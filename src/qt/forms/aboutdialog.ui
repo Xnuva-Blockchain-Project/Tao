@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About TaoCoin — Original 2017 Legacy Chain</string>
+   <string>About TaoCoin Revival</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
@@ -65,7 +65,7 @@
           <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="text">
-          <string>&lt;b&gt;TaoCoin — Original 2017 Legacy Chain&lt;/b&gt; version</string>
+          <string>&lt;b&gt;TaoCoin Revival&lt;/b&gt; version</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>

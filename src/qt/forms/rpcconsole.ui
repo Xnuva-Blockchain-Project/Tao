@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>TaoCoin - Debug window</string>
+   <string>TaoCoin Revival - Debug window</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -36,7 +36,7 @@
           </font>
          </property>
          <property name="text">
-          <string>TaoCoin — Original 2017 Legacy Chain</string>
+          <string>TaoCoin Revival</string>
          </property>
         </widget>
        </item>
@@ -348,7 +348,7 @@
        <item row="17" column="0">
         <widget class="QPushButton" name="showCLOptionsButton">
          <property name="toolTip">
-          <string>Show TaoCoin — Original 2017 Legacy Chain help and command-line options. Maintained 2026 by the Xnuva Blockchain Project.</string>
+          <string>Show TaoCoin Revival help and command-line options. Maintained 2026 by the Xnuva Blockchain Project.</string>
          </property>
          <property name="text">
           <string>&amp;Show</string>
