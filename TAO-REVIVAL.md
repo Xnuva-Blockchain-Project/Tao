@@ -12,6 +12,17 @@ from the preserved genesis, with its first new block at height 1.
 
 No missing historical blocks or balances are fabricated.
 
+## Canonical Revival fork point
+
+TaoCoin Revival block 1:
+
+    717fc5ef97ded9f7d514fcb1ed558bc76596ce85f09890efa6e668d228c4a57f
+
+This height-1 checkpoint defines the TaoCoin Revival branch. If historical
+post-genesis TaoCoin Legacy blocks are recovered in future, they remain part
+of TaoCoin Legacy and are not substituted for the Revival height-1 block.
+
+
 Revival network:
 
 - Mainnet P2P: 31137
