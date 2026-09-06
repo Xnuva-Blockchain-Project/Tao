@@ -157,9 +157,9 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationName("TaoCoin");
     QApplication::setOrganizationDomain("europazeus.org");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
-        QApplication::setApplicationName("TaoCoin-Qt-testnet");
+        QApplication::setApplicationName("TaoCoin-Revival-Qt-testnet");
     else
-        QApplication::setApplicationName("TaoCoin-Qt");
+        QApplication::setApplicationName("TaoCoin-Revival-Qt");
 
     // ... then GUI settings:
     OptionsModel optionsModel;
