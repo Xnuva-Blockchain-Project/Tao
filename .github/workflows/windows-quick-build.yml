@@ -48,6 +48,7 @@ jobs:
             --prefix=/mingw64 \
             --enable-mingw \
             --enable-cxx \
+            --disable-replication \
             --disable-shared \
             --enable-static
           make -j2
