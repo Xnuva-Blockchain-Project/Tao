@@ -171,19 +171,22 @@ leveldb/libleveldb.a:
 -include obj/*.P
 -include obj-test/*.P
 
-obj/build.h: FORCE
+obj obj-test:
+	mkdir -p $@
+
+obj/build.h: FORCE | obj
 	/bin/sh ../share/genbuild.sh obj/build.h
 version.cpp: obj/build.h
 DEFS += -DHAVE_BUILD_INFO
 
-obj/%-sse2.o: %-sse2.cpp
+obj/%-sse2.o: %-sse2.cpp | obj
 	$(CXX) -c $(xCXXFLAGS) -msse2 -MMD -MF $(@:%.o=%.d) -o $@ $<
 	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
 	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-obj/%.o: %.cpp
+obj/%.o: %.cpp | obj
 	$(CXX) -c $(xCXXFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
 	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
 	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
@@ -195,7 +198,7 @@ taocoind: $(OBJS:obj/%=obj/%)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 
-obj-test/%.o: test/%.cpp
+obj-test/%.o: test/%.cpp | obj-test
 	$(CXX) -c $(TESTDEFS) $(xCXXFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
 	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
 	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
