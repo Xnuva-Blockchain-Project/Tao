@@ -1,0 +1,101 @@
+name: Windows quick build
+
+on:
+  push:
+    branches:
+      - windows-quick-build-20260907
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            make
+            patch
+            curl
+            tar
+            perl
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-qt5-base
+            mingw-w64-x86_64-qt5-tools
+            mingw-w64-x86_64-boost
+            mingw-w64-x86_64-openssl
+
+      - name: Build Berkeley DB 4.8 and TaoCoin Windows executables
+        shell: msys2 {0}
+        run: |
+          set -euxo pipefail
+          curl -L --retry 3 -o /tmp/db-4.8.30.NC.tar.gz \
+            https://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
+          cd /tmp
+          tar -xzf db-4.8.30.NC.tar.gz
+          cd db-4.8.30.NC/build_unix
+          ../dist/configure \
+            --prefix=/mingw64 \
+            --enable-mingw \
+            --enable-cxx \
+            --disable-shared \
+            --enable-static
+          make -j2
+          make install
+
+          cd "$GITHUB_WORKSPACE"
+          qmake TaoCoin-qt.pro \
+            "RELEASE=1" \
+            "USE_UPNP=-" \
+            "USE_QRCODE=0" \
+            "BOOST_LIB_SUFFIX=-mt" \
+            "BOOST_THREAD_LIB_SUFFIX=-mt" \
+            "BDB_INCLUDE_PATH=/mingw64/include" \
+            "BDB_LIB_PATH=/mingw64/lib" \
+            "BDB_LIB_SUFFIX=-4.8" \
+            "OPENSSL_INCLUDE_PATH=/mingw64/include" \
+            "OPENSSL_LIB_PATH=/mingw64/lib"
+          mingw32-make -j2
+
+          # Also build the daemon; do not hold up the GUI package if the
+          # legacy makefile needs a separate follow-up.
+          mingw32-make -C src -f makefile.mingw \
+            DEPSDIR=/mingw64 BOOST_SUFFIX=-mt -j2 || true
+
+          mkdir -p windows-artifacts
+          cp -v taocoin-qt.exe windows-artifacts/
+          if [ -f src/taocoind.exe ]; then cp -v src/taocoind.exe windows-artifacts/; fi
+
+          # Bundle Qt and MinGW/OpenSSL/Boost runtime DLLs so Tony can test
+          # directly on a clean Windows machine.
+          windeployqt --release --no-translations windows-artifacts/taocoin-qt.exe
+          for f in \
+            /mingw64/bin/libgcc_s_seh-1.dll \
+            /mingw64/bin/libstdc++-6.dll \
+            /mingw64/bin/libwinpthread-1.dll \
+            /mingw64/bin/libssl-*.dll \
+            /mingw64/bin/libcrypto-*.dll \
+            /mingw64/bin/libboost_*.dll; do
+            [ -f "$f" ] && cp -n "$f" windows-artifacts/ || true
+          done
+
+          cd windows-artifacts
+          sha256sum *.exe > SHA256SUMS.txt
+
+      - name: Show packaged files
+        shell: bash
+        run: ls -lah windows-artifacts
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TAO-Windows-x64
+          path: windows-artifacts/**
+          if-no-files-found: error
+          retention-days: 7
