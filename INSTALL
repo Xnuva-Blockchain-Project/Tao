@@ -1,9 +1,38 @@
-Building TaoCoin
+Building TaoCoin Revival
 
-See doc/readme-qt.rst for instructions on building TaoCoin-Qt,
-the intended-for-end-users, nice-graphical-interface, reference
-implementation of TaoCoin.
+Headless Linux / Unix node
+--------------------------
 
-See doc/build-*.txt for instructions on building taocoind,
-the intended-for-services, no-graphical-interface, reference
-implementation of TaoCoin.
+Required Ubuntu/Debian development packages:
+
+    sudo apt update
+    sudo apt install -y build-essential libboost-all-dev libssl-dev libdb++-dev zlib1g-dev
+
+Build the daemon:
+
+    cd src
+    make -f makefile.unix -j"$(nproc)"
+
+The resulting executable is:
+
+    src/taocoind
+
+See doc/build-unix.md for the complete Linux/Unix build guide,
+dependency explanations and troubleshooting.
+
+Graphical wallet
+----------------
+
+See doc/readme-qt.rst and the platform-specific files under doc/
+for TaoCoin-Qt build information.
+
+Network reminder
+----------------
+
+This repository's default branch is TaoCoin Revival.
+
+Mainnet P2P: 31137
+Mainnet RPC: 31138
+Unix datadir: ~/.taocoin-revival
+
+Legacy preservation branches are not the current TaoCoin Revival network.
