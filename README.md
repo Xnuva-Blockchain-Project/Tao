@@ -52,9 +52,23 @@ Current Revival software must use the Revival network parameters above.
 
 ## Build
 
-See the platform build documentation under `doc/`.
+For Ubuntu/Debian headless-node builds, install the required system development packages first:
+
+```bash
+sudo apt update
+sudo apt install -y build-essential libboost-all-dev libssl-dev libdb++-dev zlib1g-dev
+```
+
+Then build the daemon:
+
+```bash
+cd src
+make -f makefile.unix -j"$(nproc)"
+```
 
 The daemon target is `taocoind`; the GUI target is TaoCoin-Qt.
+
+See [doc/build-unix.md](doc/build-unix.md) for the complete Linux build guide, dependency explanations and troubleshooting.
 
 ## License
 
