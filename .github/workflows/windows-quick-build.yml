@@ -55,7 +55,7 @@ jobs:
           make install
 
           cd "$GITHUB_WORKSPACE"
-          qmake TaoCoin-qt.pro \
+          qmake-qt5 TaoCoin-qt.pro \
             "RELEASE=1" \
             "USE_UPNP=-" \
             "USE_QRCODE=0" \
@@ -65,7 +65,8 @@ jobs:
             "BDB_LIB_PATH=/mingw64/lib" \
             "BDB_LIB_SUFFIX=-4.8" \
             "OPENSSL_INCLUDE_PATH=/mingw64/include" \
-            "OPENSSL_LIB_PATH=/mingw64/lib"
+            "OPENSSL_LIB_PATH=/mingw64/lib" \
+            "QMAKE_LRELEASE=/mingw64/bin/lrelease-qt5.exe"
           mingw32-make -j2
 
           mingw32-make -C src -f makefile.mingw \
@@ -75,7 +76,7 @@ jobs:
           cp -v taocoin-qt.exe windows-artifacts/
           if [ -f src/taocoind.exe ]; then cp -v src/taocoind.exe windows-artifacts/; fi
 
-          windeployqt --release --no-translations windows-artifacts/taocoin-qt.exe
+          windeployqt-qt5 --release --no-translations windows-artifacts/taocoin-qt.exe
           for f in \
             /mingw64/bin/libgcc_s_seh-1.dll \
             /mingw64/bin/libstdc++-6.dll \
