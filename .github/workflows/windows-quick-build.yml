@@ -41,7 +41,10 @@ jobs:
           cd /tmp
           tar -xzf db-4.8.30.NC.tar.gz
           cd db-4.8.30.NC/build_unix
-          ../dist/configure \
+
+          # Modern MinGW already provides socklen_t. Berkeley DB 4.8's old
+          # configure test misses that and creates a conflicting macro.
+          ac_cv_type_socklen_t=yes ../dist/configure \
             --prefix=/mingw64 \
             --enable-mingw \
             --enable-cxx \
@@ -64,8 +67,6 @@ jobs:
             "OPENSSL_LIB_PATH=/mingw64/lib"
           mingw32-make -j2
 
-          # Also build the daemon; do not hold up the GUI package if the
-          # legacy makefile needs a separate follow-up.
           mingw32-make -C src -f makefile.mingw \
             DEPSDIR=/mingw64 BOOST_SUFFIX=-mt -j2 || true
 
@@ -73,8 +74,6 @@ jobs:
           cp -v taocoin-qt.exe windows-artifacts/
           if [ -f src/taocoind.exe ]; then cp -v src/taocoind.exe windows-artifacts/; fi
 
-          # Bundle Qt and MinGW/OpenSSL/Boost runtime DLLs so Tony can test
-          # directly on a clean Windows machine.
           windeployqt --release --no-translations windows-artifacts/taocoin-qt.exe
           for f in \
             /mingw64/bin/libgcc_s_seh-1.dll \
