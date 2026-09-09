@@ -11,7 +11,7 @@ This branch exists solely to modernise the TAO (TAO) codebase against the curren
 - **DO NOT merge this branch into the live/default branch until the migration and consensus validation programme is complete.**
 - **DO NOT build public releases or binaries from this branch.**
 - **DO NOT deploy this branch to the live TAO network.**
-- The existing TAO blockchain must be preserved. This work is a software migration, **not a new chain**.
+- The authoritative TAO source for this migration is **`tao-revival` at `74216f33f634f5dde37e96805c72c63c181c52df`**. The older legacy source is not authoritative for this port. The existing TAO blockchain must be preserved. This work is a software migration, **not a new chain**.
 - Genesis block, historical block acceptance, existing balances, keys/addresses, network identity, reward history and all other consensus-relevant behaviour must be preserved unless a separately specified forward-activation change is deliberately introduced and tested.
 - TAO's existing Scrypt Proof-of-Work behaviour and historical chain rules must be preserved during the migration. No deliberate consensus changes are part of the mechanical migration.
 - Before any release, the modern client must successfully validate the existing TAO chain from genesis to the live tip and must not create or follow a replacement chain.
