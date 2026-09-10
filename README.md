@@ -27,6 +27,19 @@ TaoCoin Revival block 1:
 
 This height-1 checkpoint defines the TaoCoin Revival chain.
 
+## Network bootstrap
+
+Until fixed-seed discovery is included in maintained clients, a fresh TaoCoin
+Revival node can bootstrap from the project public node:
+
+```ini
+addnode=81.130.208.151:31137
+```
+
+The address above is the Xnuva Blockchain Project T620 node on a static public
+IPv4 address. Only the Tao Revival P2P port is used; RPC should not be exposed
+to the public Internet.
+
 ## Which branch should I use?
 
 For normal TAO use, mining, nodes, wallets and releases, use:
