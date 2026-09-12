@@ -26,6 +26,7 @@
 - Preserved height-710,000 version/coinbase-height behavior and the height-1 Revival checkpoint.
 - Kept modern wallet destination output Base58-only during the migration.
 - Added CMake wiring and a deterministic source-tree materialiser.
+- Added the Europa-class chain-identity security contract and fail-closed policy scaffold. Canonical Revival block 1 is pinned; the buried anchor and minimum-chainwork floor remain deliberately unset pending live-chain qualification.
 
 ## Mechanical port sequence
 
@@ -37,9 +38,15 @@
 6. Keep CSV, SegWit and Taproot inactive.
 7. Preserve TAO Base58 key/address formats.
 8. Port modern Chainstate/network/RPC/wallet/mining infrastructure around those rules.
-9. Build.
-10. Reindex the existing live TAO chain from Revival genesis to current tip.
-11. Release only after historical compatibility is proven.
+9. Integrate the mandatory mainnet chain-identity guard into the central block-building path.
+10. Build.
+11. Reindex the existing live TAO chain from Revival genesis to current tip.
+12. Qualify a buried canonical anchor and minimum-chainwork floor; prove wrong-chain refusal and correct-chain template creation.
+13. Release only after historical compatibility and chain-identity security are proven.
+
+## Chain-identity hard gate
+
+The branch must remain fail closed for mainnet block production until `migration/CHAIN-IDENTITY-SECURITY.md` is satisfied. The presence of the policy scaffold alone is not protection: the eventual central block-production path must consume it, and its buried anchor / minimum-work values must be derived from the genuine live TAO Revival chain rather than guessed.
 
 ## Known unresolved item
 
