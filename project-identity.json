@@ -12,7 +12,10 @@
   "projectSellsCoins": false,
   "preferredAcquisition": "mining",
   "officialExchangeListingPromoted": false,
-  "genesisHash": null,
-  "genesisVerification": "Not independently verified for this register; consult source and synced node",
-  "updated": "2026-11-24"
+  "genesisHash": "41de2a4b7018115eae4a3e7e82189b551aaf871af66929fa28a49ee852abb67e",
+  "genesisVerification": "Matched maintained mainnet source declaration; live-node RPC verification pending",
+  "updated": "2026-11-24",
+  "genesisSource": "https://github.com/Xnuva-Blockchain-Project/Tao/blob/main/src/main.cpp#L38",
+  "block1Hash": "717fc5ef97ded9f7d514fcb1ed558bc76596ce85f09890efa6e668d228c4a57f",
+  "block1Verification": "Published README Revival checkpoint; live verification pending"
 }
