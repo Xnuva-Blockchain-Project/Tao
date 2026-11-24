@@ -13,3 +13,9 @@ The Revival chain preserves original TaoCoin genesis and has a distinct height-1
 - Roadmap: https://europazeus.org/randomx-roadmap.html
 
 See [transparency policy](TRANSPARENCY.md).
+
+Mainnet genesis (source-declared): `41de2a4b7018115eae4a3e7e82189b551aaf871af66929fa28a49ee852abb67e`
+
+Source: https://github.com/Xnuva-Blockchain-Project/Tao/blob/main/src/main.cpp#L38
+
+Live-node RPC verification remains pending; this is not a live network health or release qualification claim.
