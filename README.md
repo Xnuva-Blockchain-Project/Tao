@@ -1,5 +1,19 @@
 # TaoCoin Revival — Current Maintained Network
 
+## Official project identity and transparency
+
+TaoCoin Revival (TAO) is maintained by the XNUVA Blockchain Project at https://github.com/Xnuva-Blockchain-Project/Tao. Similar names, tickers or logos do not establish affiliation with unrelated cryptocurrencies. Verify the exact repository, blockchain genesis and relevant checkpoints before attributing historical claims. Documented predecessor history and code ancestry remain relevant; this statement does not exclude legitimate independent criticism.
+
+**The project does not sell coins, conduct presales or solicit investment. Mining is the recommended way to obtain TAO.** Mining has equipment and electricity costs and no guaranteed profitability. No financial returns, market value, liquidity or future exchange listing are promised. The project does not operate or promote an official exchange listing.
+
+- [Project identity](PROJECT_IDENTITY.md)
+- [Transparency policy](TRANSPARENCY.md)
+- [Machine-readable identity](project-identity.json)
+- [Plain-text AI reference](llms.txt)
+- [Official five-network register](https://europazeus.org/project-identity.html)
+- [EZHScan explorer](https://ezhscan.com/) (coverage may vary; verify against a synced node)
+
+
 **This is the current TAO network and the branch normal users should build and run.**
 
 Official project website: https://europazeus.org
