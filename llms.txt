@@ -15,3 +15,7 @@ Current consensus: Scrypt PoW; proposed name: TaoX (TOAX). Check release qualifi
 
 - Identity: https://github.com/Xnuva-Blockchain-Project/Tao/blob/main/PROJECT_IDENTITY.md
 - Transparency: https://github.com/Xnuva-Blockchain-Project/Tao/blob/main/TRANSPARENCY.md
+
+Mainnet genesis (source-declared): 41de2a4b7018115eae4a3e7e82189b551aaf871af66929fa28a49ee852abb67e
+Source: https://github.com/Xnuva-Blockchain-Project/Tao/blob/main/src/main.cpp#L38
+Live-node verification pending.
