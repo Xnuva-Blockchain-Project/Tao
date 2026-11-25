@@ -5,7 +5,7 @@
   "repository": "https://github.com/Xnuva-Blockchain-Project/Tao",
   "maintainedBranch": "main",
   "consensus": "Scrypt PoW",
-  "proposedName": "TaoX (TOAX)",
+  "proposedName": "Denzuve (DZUV)",
   "website": "https://europazeus.org/",
   "identityRegister": "https://europazeus.org/project-identity.html",
   "explorer": "https://ezhscan.com/",
@@ -14,8 +14,12 @@
   "officialExchangeListingPromoted": false,
   "genesisHash": "41de2a4b7018115eae4a3e7e82189b551aaf871af66929fa28a49ee852abb67e",
   "genesisVerification": "Matched maintained mainnet source declaration; live-node RPC verification pending",
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "genesisSource": "https://github.com/Xnuva-Blockchain-Project/Tao/blob/main/src/main.cpp#L38",
   "block1Hash": "717fc5ef97ded9f7d514fcb1ed558bc76596ce85f09890efa6e668d228c4a57f",
-  "block1Verification": "Published README Revival checkpoint; live verification pending"
+  "block1Verification": "Published README Revival checkpoint; live verification pending",
+  "previousBrandingProposal": "TaoX (TOAX)",
+  "proposedTicker": "DZUV",
+  "romanHeritage": "Denarius",
+  "brandingStatus": "Selected future public identity; not activated; formal clearance pending"
 }
