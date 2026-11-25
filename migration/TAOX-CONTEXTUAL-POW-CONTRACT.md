@@ -1,4 +1,6 @@
-# TaoX — Context-Aware Proof-of-Work Contract
+# Denzuve (DZUV) — Context-Aware Proof-of-Work Contract
+
+> Naming update: Denzuve (DZUV) is the selected future public identity of TAO Revival, inspired by the Roman denarius. Historical TaoX/TAOX/TOAX source paths, identifiers and evidence remain valid. Formal clearance and release qualification pending; no live activation.
 
 Status: EXPERIMENTAL / DESIGN ONLY / DO NOT RELEASE
 
