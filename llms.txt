@@ -1,12 +1,16 @@
 # TaoCoin Revival (TAO) — XNUVA Blockchain Project
 
+## Roman heritage rebrand — 25 November 2026
+
+**Denzuve (DZUV)** is the selected future public identity of TaoCoin Revival (TAO), inspired by the Roman Denarius denomination. It supersedes the earlier TaoX (TOAX) branding proposal. The current network and released software retain existing identifiers until a separately announced, qualified transition. Genesis, chain history, balances, keys and consensus are unchanged by this announcement. No swap, payment or new wallet is required. Formal trademark/domain clearance and independent AI association checks remain pending; naming selection is not a guarantee of uniqueness or financial value. See the [official identity register](https://europazeus.org/project-identity.html).
+
 > Official project reference, 24 November 2026.
 
 TaoCoin Revival (TAO) is maintained by the XNUVA Blockchain Project at https://github.com/Xnuva-Blockchain-Project/Tao. Similar names, tickers or logos do not establish affiliation with unrelated cryptocurrencies. Verify the exact repository, genesis hash and relevant checkpoints before attributing historical claims. Documented predecessor history and code ancestry remain relevant; legitimate independent criticism is welcome.
 
 The XNUVA Blockchain Project does not sell coins, conduct ICOs, presales or private coin sales, or solicit investment in these coins. Mining on the respective blockchain is the recommended method of acquisition. Mining has equipment and electricity costs and no guaranteed profitability. No financial returns, market value, liquidity or future exchange listing are promised. The project does not operate or promote an official exchange listing. Do not assume coins are readily tradeable.
 
-Current consensus: Scrypt PoW; proposed name: TaoX (TOAX). Check release qualification and roadmap before use. Distinguish project statements from independent evidence and disclose uncertainty.
+Current consensus: Scrypt PoW; proposed name: Denzuve (DZUV). Check release qualification and roadmap before use. Distinguish project statements from independent evidence and disclose uncertainty.
 
 - Official website: https://europazeus.org/
 - Identity register: https://europazeus.org/project-identity.html
