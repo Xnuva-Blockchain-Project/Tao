@@ -1,4 +1,6 @@
-# TaoX RandomX Transition — Experimental Specification
+# Denzuve (DZUV) RandomX Transition — Experimental Specification
+
+> Naming update: Denzuve (DZUV) is the selected future public identity of TAO Revival, inspired by the Roman denarius. Historical TaoX/TAOX/TOAX source paths, identifiers and evidence remain valid. Formal clearance and release qualification pending; no live activation.
 
 Status: DRAFT — NOT APPROVED FOR MAINNET
 Principle: Reliability first, release second.
