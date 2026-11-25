@@ -1,4 +1,6 @@
-# TaoX RandomX Modernisation — Current Engineering Status
+# Denzuve (DZUV) RandomX Modernisation — Current Engineering Status
+
+> Naming update: Denzuve (DZUV) is the selected future public identity of TAO Revival, inspired by the Roman denarius. Historical TaoX/TAOX/TOAX source paths, identifiers and evidence remain valid. Formal clearance and release qualification pending; no live activation.
 
 **Updated:** 2026-11-22 UTC  
 **Status:** experimental; **no mainnet RandomX activation approved; not release-ready**  
