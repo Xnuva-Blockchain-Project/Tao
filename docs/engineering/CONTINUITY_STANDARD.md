@@ -1,5 +1,7 @@
 # Engineering Continuity Standard — TaoX / Golden Standard
 
+> Naming update: Denzuve (DZUV) is the selected future public identity of TAO Revival, inspired by the Roman denarius. Historical TaoX/TAOX/TOAX source paths, identifiers and evidence remain valid. Formal clearance and release qualification pending; no live activation.
+
 Status: **development process documentation** (22 November 2026). This document is not an approval to activate RandomX or release a node.
 
 ## Source of truth
